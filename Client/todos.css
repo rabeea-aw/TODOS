@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100%;
+    background-color: #e0f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 35rem;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333333;
+}
+
+.info {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555555;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.form input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 2px solid #b0bec5;
+    border-radius: 5px;
+    margin-right: 0.5rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form input:focus {
+    border-color: #00796b;
+}
+
+.form button {
+    padding: 0.8rem 1.5rem;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form button:hover {
+    background-color: #004d40;
+}
+
+.lists {
+    margin-bottom: 1.5rem;
+}
+
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem;
+    margin-top: 0.7rem;
+    background-color: #f1f8e9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s;
+}
+
+.todo:hover {
+    background-color: #dcedc8;
+}
+
+.todo span {
+    cursor: pointer;
+    color: #00796b;
+    transition: color 0.3s;
+}
+
+.todo span:hover {
+    color: #004d40;
+}
+
+.actions {
+    text-align: center;
+}
+
+.actions button {
+    padding: 0.5rem 1rem;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 0.5rem;
+}
+
+.actions button:hover {
+    background-color: #004d40;
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="RegisterUser.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Register</h1>
+        <form id="registrationForm">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" placeholder="user@example.com" required><br>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required minlength="8"><br><br>
+            <label for="repeat_password">Repeat Password:</label><br>
+            <input type="password" id="repeat_password" name="repeat_password" required minlength="8"><br><br>
+            <input type="submit" value="Register">
+        </form>
+        <div id="formFeedback"></div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value;
+            let repeatPassword = document.getElementById("repeat_password").value;
+        
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+        
+            if (password !== repeatPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+        
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return;
+            }
+        
+            let formData = {
+                name: name,
+                email: email,
+                username: username,
+                password: password 
+            };
+        
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to register with status: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data)
+                
+                // Get the existing users from localStorage
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+                users.push({
+                    name: data.name, 
+                    email: data.email, 
+                    username: data.username, 
+                    password: data.password 
+                });
+                
+                // Save back to localStorage
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                window.location.href = 'LoginUser.html'; 
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Failed to register. ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>

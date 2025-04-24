@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List With Local Storage</title>
+    <link rel="stylesheet" href="todos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="info">
+            <p id="username">Username: <span id="usernameValue">Loading...</span></p>
+            <p id="email">Email: <span id="emailValue">Loading...</span></p>
+        </div>
+        <h1 class="title">OOP Todo List</h1>
+        <form class="form" data-form>
+            <input type="text" placeholder="Add a todo..." data-input>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        <div class="lists" data-lists></div>
+        <div class="actions">
+            <button id="saveButton" class="btn">Save</button>
+            <button id="logoutButton" class="btn">Logout</button>
+        </div>
+    </div>
+
+    <script>
+    // Populate user information from localStorage
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        if (user) {
+            document.getElementById('usernameValue').textContent = user.username;
+            document.getElementById('emailValue').textContent = user.email;
+            loadUserTodos(user);
+        } else {
+            window.location.href = 'LoginUser.html'; // Redirect to login if no user data found
+        }
+    });
+
+    document.getElementById('saveButton').addEventListener('click', function() {
+        saveUserTodos();
+        alert('Todos saved!');
+    });
+
+    // Logout function
+    document.getElementById('logoutButton').addEventListener('click', function() {
+        localStorage.removeItem('currentUser'); 
+        window.location.href = 'LoginUser.html'; // Redirect to the login page
+    });
+
+    function loadUserTodos(user) {
+        todoArr = Storage.getUserTodos(user.username);
+        UI.displayData();
+        UI.registerRemoveTodo();
+    }
+
+    function saveUserTodos() {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        if (user) {
+            Storage.saveUserTodos(user.username, todoArr);
+        }
+    }
+    </script>
+    <script src="todos.js"></script>
+</body>
+</html>
